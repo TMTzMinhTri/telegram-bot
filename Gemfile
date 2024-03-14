@@ -55,6 +55,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'rubocop'
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
 
@@ -77,4 +78,6 @@ gem 'telegram-bot', '~> 0.16.1'
 
 gem 'redis-rails', '~> 5.0'
 
-gem "sidekiq", "~> 7.2"
+gem 'sidekiq', '~> 7.2'
+
+gem 'devise', '~> 4.9'

@@ -1,11 +1,13 @@
 # frozen_string_literal: true
+
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  default_url_options host: 'https://c6ec-2001-ee0-d744-4130-39a5-781c-592e-69f7.ngrok-free.app'
-  telegram_webhook TelegramBot::BaseController
-  mount Sidekiq::Web => "/sidekiq" 
-  
+  devise_for :users
+  default_url_options host: 'https://9a53-2001-ee0-d744-4130-c1d9-b76a-7257-d0a8.ngrok-free.app'
+  telegram_webhook TelegramBot::WebhookController
+  mount Sidekiq::Web => '/sidekiq'
+
   root 'page#index'
   get 'page/index'
   get 'up' => 'rails/health#show', as: :rails_health_check
