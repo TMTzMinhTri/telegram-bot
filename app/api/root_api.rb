@@ -30,7 +30,9 @@ class RootApi < Grape::API
                 GrapeLogging::Loggers::FilterParameters.new,
                 # GrapeLogging::Loggers::ClientEnv.new,
                 GrapeLogging::Loggers::RequestHeaders.new]
+
   mount Endpoints::Demo
+  mount Endpoints::Messages
 
   add_swagger_documentation(
     base_path: '',

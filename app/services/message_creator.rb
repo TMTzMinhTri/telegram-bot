@@ -1,10 +1,17 @@
 # frozen_string_literal: true
 
+require 'yaml'
+
 class MessageCreator < ApplicationService
-  def initialize(message)
+  def initialize(body:)
+    @bet_types = YAML.load(File.open)
     super
-    @message = message
+
+    # @body = body
   end
 
-  def call; end
+  def call
+    # @body
+    @bet_types
+  end
 end
