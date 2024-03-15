@@ -23,7 +23,7 @@ module TelegramBot
     # register context handlers to handle this context
     def rename_from_message(*words)
       # update_name words[0]
-      p words
+      Rails.logger.debug words
       respond_with :message, text: 'Renamed!'
     end
 

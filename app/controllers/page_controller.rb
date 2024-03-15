@@ -2,5 +2,7 @@
 
 class PageController < ApplicationController
   before_action :authenticate_user!
-  def index; end
+  def index
+    # render text: Thread.current[:counter]
+  end
 end

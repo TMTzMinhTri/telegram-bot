@@ -9,9 +9,9 @@ module TelegramBot
     end
 
     def rename_from_message(*words)
-      p '----'
-      p words
-      p '----'
+      Rails.logger.debug '----'
+      Rails.logger.debug words
+      Rails.logger.debug '----'
       respond_with :message, text: 'Renamed!'
     end
   end

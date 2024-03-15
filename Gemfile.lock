@@ -77,6 +77,9 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
+    annotate (3.2.0)
+      activerecord (>= 3.2, < 8.0)
+      rake (>= 10.4, < 14.0)
     ast (2.4.2)
     base64 (0.2.0)
     bcrypt (3.1.20)
@@ -110,10 +113,46 @@ GEM
       responders
       warden (~> 1.2.3)
     drb (2.2.1)
+    dry-core (1.0.1)
+      concurrent-ruby (~> 1.0)
+      zeitwerk (~> 2.6)
+    dry-inflector (1.0.0)
+    dry-logic (1.5.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.0, < 2)
+      zeitwerk (~> 2.6)
+    dry-types (1.7.2)
+      bigdecimal (~> 3.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.0)
+      dry-inflector (~> 1.0)
+      dry-logic (~> 1.4)
+      zeitwerk (~> 2.6)
     error_highlight (0.6.0)
     erubi (1.12.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    grape (2.0.0)
+      activesupport (>= 5)
+      builder
+      dry-types (>= 1.1)
+      mustermann-grape (~> 1.0.0)
+      rack (>= 1.3.0)
+      rack-accept
+    grape-entity (1.0.0)
+      activesupport (>= 3.0.0)
+      multi_json (>= 1.3.2)
+    grape-swagger (2.0.2)
+      grape (>= 1.7, < 3.0)
+      rack-test (~> 2)
+    grape-swagger-entity (0.5.3)
+      grape-entity (>= 0.6.0)
+      grape-swagger (>= 1.2.0)
+    grape-swagger-rails (0.4.0)
+      railties (>= 6.0.6.1)
+    grape_logging (1.8.4)
+      grape
+      rack
     httpclient (2.8.3)
     i18n (1.14.4)
       concurrent-ruby (~> 1.0)
@@ -145,6 +184,11 @@ GEM
     mini_mime (1.1.5)
     minitest (5.22.2)
     msgpack (1.7.2)
+    multi_json (1.15.0)
+    mustermann (3.0.0)
+      ruby2_keywords (~> 0.0.1)
+    mustermann-grape (1.0.2)
+      mustermann (>= 1.0.0)
     mutex_m (0.2.0)
     net-imap (0.4.10)
       date
@@ -180,6 +224,10 @@ GEM
       nio4r (~> 2.0)
     racc (1.7.3)
     rack (3.0.9.1)
+    rack-accept (0.4.5)
+      rack (>= 0.4)
+    rack-cors (2.0.2)
+      rack (>= 2.0.0)
     rack-session (2.0.0)
       rack (>= 3.0.0)
     rack-test (2.1.0)
@@ -260,7 +308,13 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.31.2)
       parser (>= 3.3.0.4)
+    rubocop-rails (2.24.0)
+      activesupport (>= 4.2.0)
+      rack (>= 1.1)
+      rubocop (>= 1.33.0, < 2.0)
+      rubocop-ast (>= 1.31.1, < 2.0)
     ruby-progressbar (1.13.0)
+    ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     selenium-webdriver (4.18.1)
       base64 (~> 0.2)
@@ -326,20 +380,28 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  annotate
   bootsnap
   capybara
   cssbundling-rails
   debug
   devise (~> 4.9)
   error_highlight (>= 0.4.0)
+  grape (~> 2.0)
+  grape-entity (~> 1.0)
+  grape-swagger (~> 2.0)
+  grape-swagger-entity (~> 0.5.3)
+  grape-swagger-rails (~> 0.4.0)
+  grape_logging (~> 1.8)
   jbuilder
   jsbundling-rails
   kredis
   puma (>= 5.0)
+  rack-cors (~> 2.0)
   rails (~> 7.1.3, >= 7.1.3.2)
   redis (>= 4.0.1)
   redis-rails (~> 5.0)
-  rubocop
+  rubocop-rails
   selenium-webdriver
   sidekiq (~> 7.2)
   sprockets-rails
