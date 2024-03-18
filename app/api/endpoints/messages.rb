@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Endpoints
   class Messages < Grape::API
     resource :messages do
@@ -7,9 +9,10 @@ module Endpoints
         requires :body, type: String, desc: 'Message body'
       end
       post do
-        result = MessageCreator.call(body: params[:body])
+        authenticate_user!
+        MessageCreator.call(body: params[:body])
         {
-          message: result || 'true'
+          message: declared_params
         }
       end
     end

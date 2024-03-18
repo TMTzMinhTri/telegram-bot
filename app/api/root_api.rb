@@ -33,6 +33,7 @@ class RootApi < Grape::API
 
   mount Endpoints::Demo
   mount Endpoints::Messages
+  mount Endpoints::Clients
 
   add_swagger_documentation(
     base_path: '',

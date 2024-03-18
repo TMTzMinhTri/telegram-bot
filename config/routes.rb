@@ -1,14 +1,21 @@
 # frozen_string_literal: true
 
 require 'sidekiq/web'
+Sidekiq::Web.use ActionDispatch::Cookies
+Sidekiq::Web.use Rails.application.config.session_store, Rails.application.config.session_options
 
 Rails.application.routes.draw do
+  devise_for :clients
   devise_for :users
-  default_url_options host: 'https://3be1-2001-ee0-d744-4130-c1d9-b76a-7257-d0a8.ngrok-free.app'
+  default_url_options host: Rails.application.credentials.ngrok_url || {}
+
   telegram_webhook TelegramBot::WebhookController
-  mount Sidekiq::Web => '/sidekiq'
+
+  authenticate :user do
+    mount Sidekiq::Web => '/sidekiq'
+    mount GrapeSwaggerRails::Engine => '/swagger'
+  end
   mount RootApi => '/'
-  mount GrapeSwaggerRails::Engine => '/swagger'
 
   # root 'page#index'
   get 'page/index'

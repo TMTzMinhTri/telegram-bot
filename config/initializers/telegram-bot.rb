@@ -2,8 +2,8 @@
 
 Telegram.bots_config = {
   default: {
-    username: Rails.application.credentials.dig(:telegram, :bot, :username),
-    token: Rails.application.credentials.dig(:telegram, :bot, :token),
+    username: Rails.application.credentials.telegram.dig(:bot, :username),
+    token: Rails.application.credentials.telegram.dig(:bot, :token),
     async: true
   }
 }

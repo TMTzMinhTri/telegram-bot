@@ -1,0 +1,70 @@
+dai_chinh:
+  - dc
+  - chanh
+  - ch
+  - daichanh
+  - dchanh
+dai_phu:
+  - dp
+  - phu
+  - ph
+  - dphu
+  - daiphu
+ha_noi:
+  - hn
+  - hanoi
+  - ha noi
+an_giang:
+  - ag
+  - an giang
+  - angiang
+bac_lieu:
+  - bl
+  - bac lieu
+  - baclieu
+  - blieu
+ben_tre:
+  - bt
+  - btre
+  - bentre
+  - ben tre
+binh_duong:
+  - bd
+  - binh duong
+  - bduong
+  - binhduong
+  - sb
+binh_phuoc:
+  - bp
+  - binh phuoc
+  - binhphuoc
+  - bphuoc
+binh_thuan:
+  - bt
+  - binh thuan
+  - bthuan
+  - binhtuan
+ca_mau:
+  - cm
+  - ca mau
+  - camau
+can_tho:
+  - ct
+  - can tho
+  - cantho
+  - ctho
+da_lat:
+  - dl
+  - dlat
+  - dalat
+  - da lat
+dong_nai:
+  - dn
+  - dnai
+  - dongnai
+  - dong nai
+dong_thap:
+  - dt
+  - dthap
+  - dongthap
+  - dong thap

@@ -1,14 +1,15 @@
 {
-    "rubyLsp.bypassTypechecker": false,
-    "rubyLsp.featuresConfiguration": {},
-    "rubyLsp.formatter": "rubocop",
-    "rubyLsp.rubyVersionManager": "rbenv",
-    "rufo.useBundler": true,
-    "[ruby]": {
-        "editor.defaultFormatter": "Shopify.ruby-lsp",
-        "editor.formatOnSave": true,
-        "editor.tabSize": 2,
-        "editor.insertSpaces": true,
-        "editor.semanticHighlighting.enabled": true
-    }
+  "rubyLsp.bypassTypechecker": false,
+  "rubyLsp.featuresConfiguration": {},
+  "rubyLsp.formatter": "rubocop",
+  "rubyLsp.rubyVersionManager": "rbenv",
+  // "rufo.useBundler": true,
+  "[ruby]": {
+    "editor.defaultFormatter": "Shopify.ruby-lsp",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.semanticHighlighting.enabled": true
+  }
+  // "rufo.exe": "/Users/tranminhtri/.rbenv/shims/rufo"
 }

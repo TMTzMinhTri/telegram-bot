@@ -75,19 +75,14 @@ group :test do
   gem 'selenium-webdriver'
 end
 
-gem 'telegram-bot', '~> 0.16.1'
-
-gem 'redis-rails', '~> 5.0'
-
-gem 'sidekiq', '~> 7.2'
-
 gem 'devise', '~> 4.9'
-
 gem 'grape', '~> 2.0'
 gem 'grape-entity', '~> 1.0'
 gem 'grape_logging', '~> 1.8'
 gem 'grape-swagger', '~> 2.0'
 gem 'grape-swagger-entity', '~> 0.5.3'
 gem 'grape-swagger-rails', '~> 0.4.0'
-
 gem 'rack-cors', '~> 2.0'
+gem 'redis-rails', '~> 5.0'
+gem 'sidekiq', '~> 7.2'
+gem 'telegram-bot', '~> 0.16.1'
