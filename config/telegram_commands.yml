@@ -1,9 +1,8 @@
-- help:
-    command: help
-    description: hướng dẫn đặt cược
-- info:
-    command: info
-    description: thông tin tài khoảng
-- logout:
-    command: logut
-    description: đăng xuất
+# - command: help
+#   description: hướng dẫn đặt cược
+# - command: info
+#   description: thông tin tài khoảng
+- command: logut
+  description: đăng xuất
+- command: login
+  description: đăng nhập

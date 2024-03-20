@@ -1,7 +1,4 @@
 en:
   telegram_bot:
       webhook:
-        start:
-          hi: Hi there!
-        read:
-          hi: Hi there!
+  

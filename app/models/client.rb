@@ -31,7 +31,7 @@ class Client < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable,
-         :recoverable, :validatable, :Lockable
+         :recoverable, :validatable, :Lockable, authentication_keys: [:phone_number]
 
   validates :phone_number, presence: true, uniqueness: true
 

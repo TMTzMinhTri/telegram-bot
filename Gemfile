@@ -58,6 +58,8 @@ group :development do
   gem 'annotate'
   gem 'rubocop-rails', require: false
   # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem 'ngrok-tunnel', github: 'GetJobber/ngrok-tunnel', ref: 'c2bf7dd'
+  gem 'tty-box'
   gem 'web-console'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]

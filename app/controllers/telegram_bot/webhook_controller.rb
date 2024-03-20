@@ -6,12 +6,8 @@ module TelegramBot
     include Telegram::Bot::UpdatesController::MessageContext
 
     def start!(*)
-      session[:webhook] = 'endpoint'
+      p session.id
       respond_with :message, text: t('.hi')
-    end
-
-    def read!(*)
-      respond_with :message, text: session[:webhook] || 'empty'
     end
 
     def rename!(*)
@@ -27,10 +23,16 @@ module TelegramBot
       respond_with :message, text: 'Renamed!'
     end
 
+    def message(*)
+      respond_with :message, text: 'What do you like?'
+    end
+
     private
 
     def session_key
-      "#{bot.username}:#{chat['id']}:#{from['id']}" if chat && from
+      return unless chat && from && chat['type'] == 'private'
+
+      "#{bot.username}:#{from['username']}:#{from['id']}"
     end
   end
 end

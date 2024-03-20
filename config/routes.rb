@@ -7,7 +7,6 @@ Sidekiq::Web.use Rails.application.config.session_store, Rails.application.confi
 Rails.application.routes.draw do
   devise_for :clients
   devise_for :users
-  default_url_options host: Rails.application.credentials.ngrok_url || {}
 
   telegram_webhook TelegramBot::WebhookController
 
