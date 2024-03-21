@@ -8,19 +8,6 @@ class RootApi < Grape::API
   prefix :api
   content_type :json, 'application/json'
 
-  # logger.formatter = GrapeLogging::Formatters::Default.new
-
-  # insert_before Grape::Middleware::Error, GrapeLogging::Middleware::RequestLogger,
-  #               {
-  #                 logger:,
-  #                 include: [
-  #                   # GrapeLogging::Loggers::Response.new,
-  #                   GrapeLogging::Loggers::FilterParameters.new,
-  #                   # GrapeLogging::Loggers::ClientEnv.new,
-  #                   GrapeLogging::Loggers::RequestHeaders.new
-  #                 ],
-  #                 log_level: 'debug'
-  #               }
   include ExceptionsHandler
   helpers GlobalHelpers
 
@@ -28,12 +15,12 @@ class RootApi < Grape::API
       logger:,
       include: [GrapeLogging::Loggers::Response.new,
                 GrapeLogging::Loggers::FilterParameters.new,
-                # GrapeLogging::Loggers::ClientEnv.new,
                 GrapeLogging::Loggers::RequestHeaders.new]
 
   mount Endpoints::Demo
   mount Endpoints::Messages
   mount Endpoints::Clients
+  mount Endpoints::Config
 
   add_swagger_documentation(
     base_path: '',

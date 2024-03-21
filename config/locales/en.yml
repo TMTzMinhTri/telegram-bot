@@ -1,4 +1,6 @@
 en:
   telegram_bot:
       webhook:
-  
+        unauthenticated: "You need to sign in or sign up before continuing."
+        already_authenticated: "You already have authenticated"
+        invalid: "Invalid username or password"

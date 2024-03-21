@@ -22,6 +22,10 @@ module GlobalHelpers
                                                           )).permit!
   end
 
+  def parse_yaml(file)
+    YAML.load(File.open(file))
+  end
+
   private
 
   def warden

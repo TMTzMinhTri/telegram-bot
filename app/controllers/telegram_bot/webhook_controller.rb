@@ -4,13 +4,19 @@ module TelegramBot
   class WebhookController < Telegram::Bot::UpdatesController # rubocop:disable Style/Documentation
     include Telegram::Bot::UpdatesController::Session
     include Telegram::Bot::UpdatesController::MessageContext
+    include TelegramAuthenticatable
+
+    class Unauthorization < StandardError; end
+
+    rescue_from Unauthorization, with: :handle_unauthorizated
 
     def start!(*)
-      p session.id
+      authentication_telegram_user!
       respond_with :message, text: t('.hi')
     end
 
     def rename!(*)
+      authentication_telegram_user!
       # set context for the next message
       save_context :rename_from_message
       respond_with :message, text: 'What name do you like?'
@@ -33,6 +39,19 @@ module TelegramBot
       return unless chat && from && chat['type'] == 'private'
 
       "#{bot.username}:#{from['username']}:#{from['id']}"
+    end
+
+    def handle_unauthorizated
+      save_context(:login)
+      respond_with :message, text: t('.unauthenticated')
+    end
+
+    def authentication_telegram_user!
+      raise Unauthorization if current_client.nil?
+    end
+
+    def current_client
+      @current_client ||= (Client.find_by(id: session['client_id']) if session.key?(:client_id))
     end
   end
 end

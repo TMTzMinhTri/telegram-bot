@@ -31,11 +31,17 @@ class Client < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable,
-         :recoverable, :validatable, :Lockable, authentication_keys: [:phone_number]
+         :recoverable, :validatable, :lockable, authentication_keys: [:phone_number]
 
   validates :phone_number, presence: true, uniqueness: true
 
   belongs_to :user
+
+  def update_telegram_session(chat_id)
+    self.telegram_sign_in_at = Time.zone.now if telegram_sign_in_at.nil?
+    self.telegram_chat_id = chat_id
+    save!
+  end
 
   private
 
