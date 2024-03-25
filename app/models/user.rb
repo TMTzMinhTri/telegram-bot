@@ -33,10 +33,25 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_unlock_token          (unlock_token) UNIQUE
 #
-require "test_helper"
+class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable, :confirmable,
+         :recoverable, :rememberable, :validatable
 
-class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  # has_many :team_members, dependent: :destroy
+  # has_many :teams, dependent: :destroy, through: :team_members
+  # has_one :team, dependent: :destroy, inverse_of: 'created_by'
+
+  validates :phone_number, uniqueness: true, if: ->(user) { user.phone_number.present? }
+
+  after_initialize :ensure_password_has_value
+
+  private
+
+  def ensure_password_has_value
+    return unless password.nil?
+
+    self.password = '123456789'
+  end
 end

@@ -16,4 +16,5 @@ User.create_or_find_by(email: 'admin@gmail.com') do |user|
   user.phone_number = '0396923861'
   user.name = 'admin'
   user.confirmed_at = Time.zone.now
+  user.team = Team.new(name: 'Test', created_by: user)
 end

@@ -24,7 +24,7 @@ class RootApi < Grape::API
     add_base_path: true,
     add_version: true,
     info: {
-      title: 'Weather API',
+      title: 'Saasgear API',
       contact_url: ''
     },
     array_use_braces: true

@@ -23,6 +23,11 @@ module Bot3
                          expire_after: 90.minutes,
                          key: 'access_token_ne',
                          secure: true
+    config.cache_store = :redis_cache_store, {
+      url: 'redis://localhost:6379/0',
+      expires_in: 90.minutes,
+      namespace: 'bot3_cache'
+    }
 
     # Configuration for the application, engines, and railties goes here.
     #
