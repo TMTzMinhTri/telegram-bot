@@ -18,9 +18,6 @@ class RootApi < Grape::API
                 GrapeLogging::Loggers::RequestHeaders.new]
 
   mount Endpoints::Demo
-  mount Endpoints::Messages
-  mount Endpoints::Clients
-  mount Endpoints::Config
 
   add_swagger_documentation(
     base_path: '',
