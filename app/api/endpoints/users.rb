@@ -3,7 +3,6 @@ module Endpoints
     resources :users do
       get :me do
       end
-
       post :login do
       end
 

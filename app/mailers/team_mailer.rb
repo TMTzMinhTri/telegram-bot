@@ -1,14 +1,12 @@
 class TeamMailer < ApplicationMailer
   def invitation_instructions
     member = params[:member]
-    p '----------------------------------------------------------------'
-    p '----------------------------------------------------------------'
-    p '----------------------------------------------------------------'
-    p '----------------------------------------------------------------'
-    # @token = member.invitation_token
-    # @sender =
-    debugger
-    # mail(header_for('invitation',
-    #                 sender: @sender, reciver:))
+    token = member.invitation_token
+    user_info = member.user
+
+    @team_name = member.team.name
+    @url = "https://localhost:3002/invitations/#{token}"
+    mail(subject: 'Team invitation',
+         to: email_address_with_name(user_info.email, user_info.name))
   end
 end

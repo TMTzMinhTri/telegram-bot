@@ -1,16 +1,13 @@
 {
-  "rubyLsp.bypassTypechecker": false,
-  "rubyLsp.featuresConfiguration": {},
-  "rubyLsp.formatter": "rubocop",
-  "rubyLsp.rubyVersionManager": "rbenv",
-  // "rufo.useBundler": true,
-  "editor.tabSize": 2,
-  "[ruby]": {
-    "editor.defaultFormatter": "Shopify.ruby-lsp",
-    "editor.formatOnSave": true,
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true,
-    "editor.semanticHighlighting.enabled": true
-  }
-  // "rufo.exe": "/Users/tranminhtri/.rbenv/shims/rufo"
+    "rubyLsp.rubyVersionManager": "rbenv",
+    "rubyLsp.formatter": "rubocop",
+    "ruby.rubocop.configFilePath": ".rubocop.yml",
+    "[ruby]": {
+        "editor.defaultFormatter": "misogi.ruby-rubocop", // Use the Ruby LSP as the default formatter
+        "editor.formatOnSave": true, // Format files automatically when saving
+        "editor.tabSize": 2, // Use 2 spaces for indentation
+        "editor.insertSpaces": true, // Use spaces and not tabs for indentantion
+        "editor.semanticHighlighting.enabled": true, // Enable semantic highlighting
+        "editor.formatOnType": true, // Enable formatting while typing
+    }
 }

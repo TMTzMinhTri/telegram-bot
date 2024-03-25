@@ -7,10 +7,8 @@ module TeamService
     end
 
     def call
-      if current_user.email == @invitee_email
-        raise ArgumentError, "You cannot invite yourself"
-      end
-      
+      raise ArgumentError, 'You cannot invite yourself' if current_user.email == @invitee_email
+
       team = Team.find_by!(created_by: @current_user)
 
       User.transaction do
@@ -37,7 +35,7 @@ module TeamService
     end
 
     def user_exists_in_team?(team, user)
-      TeamMember.where(team_id: team.id, user_id: user.id).exists?
+      TeamMember.exists?(team_id: team.id, user_id: user.id)
     end
   end
 end

@@ -22,7 +22,9 @@ module Bot3
                          servers: ['redis://localhost:6379/2/session'],
                          expire_after: 90.minutes,
                          key: 'access_token_ne',
-                         secure: true
+                         #  threadsafe: true,
+                         #  domain: :all,
+                         secure: Rails.env.production?
     config.cache_store = :redis_cache_store, {
       url: 'redis://localhost:6379/0',
       expires_in: 90.minutes,

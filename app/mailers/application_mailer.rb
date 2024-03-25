@@ -6,11 +6,10 @@ class ApplicationMailer < ActionMailer::Base
 
   protected
 
-  def header_for(subject:, sender:, reciver:)
+  def header_for(subject:, to:)
     {
       subject:,
-      to: sender.email,
-      from: reciver.email
+      to:
     }
   end
 end

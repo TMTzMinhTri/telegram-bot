@@ -21,7 +21,7 @@
 #  index_team_members_on_team_id           (team_id)
 #  index_team_members_on_user_id           (user_id)
 #
-require "test_helper"
+require 'test_helper'
 
 class TeamMemberTest < ActiveSupport::TestCase
   # test "the truth" do

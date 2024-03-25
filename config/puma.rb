@@ -42,7 +42,7 @@ if Rails.env.development?
     options = {
       addr: ENV.fetch('PORT', 3000),
       inspect: true,
-      config: File.join(ENV['HOME'], 'ngrok.yml')
+      config: Rails.root.join('config/ngrok.yml')
     }
     Ngrok::Tunnel.start(options)
     box = TTY::Box.frame(width: 50, height: 10, padding: 2, title: { top_left: '<NGROK>', bottom_right: '</NGROK>' },
@@ -56,7 +56,7 @@ if Rails.env.development?
       "I couldn't create the tunnel ;("
     end
   end
-  Rails.logger.debug "\n#{box}\n"
+  Rails.logger.debug { "\n#{box}\n" }
 end
 
 on_booted do

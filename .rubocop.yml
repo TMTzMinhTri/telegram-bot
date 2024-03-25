@@ -1,1 +1,12 @@
-require: rubocop-rails
+require: 
+  - rubocop-rails
+  - rubocop-performance
+
+AllCops:
+  NewCops: enable
+  SuggestExtensions: false
+Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+

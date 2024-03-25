@@ -1,7 +1,14 @@
-# frozen_string_literal: true
-
 class ApplicationService
-  def initialize(*)end
+  attr_reader :errors, :result
+
+  def initialize(*)
+    @errors = []
+    @result = nil
+  end
+
+  def success?
+    errors.blank?
+  end
   class << self
     def call(**args)
       new(**args).call

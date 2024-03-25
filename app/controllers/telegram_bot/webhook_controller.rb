@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module TelegramBot
-  class WebhookController < Telegram::Bot::UpdatesController # rubocop:disable Style/Documentation
+  class WebhookController < Telegram::Bot::UpdatesController
     include Telegram::Bot::UpdatesController::Session
     include Telegram::Bot::UpdatesController::MessageContext
     include TelegramAuthenticatable

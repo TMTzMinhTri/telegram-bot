@@ -12,7 +12,7 @@
 #
 #  index_teams_on_created_by  (created_by)
 #
-require "test_helper"
+require 'test_helper'
 
 class TeamTest < ActiveSupport::TestCase
   # test "the truth" do

@@ -56,7 +56,9 @@ end
 
 group :development do
   gem 'annotate'
+  gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
+  gem 'ruby-lsp'
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'ngrok-tunnel', github: 'GetJobber/ngrok-tunnel', ref: 'c2bf7dd'
   gem 'tty-box'

@@ -80,4 +80,5 @@ Rails.application.configure do
   config.telegram_updates_controller.session_store = :redis_store, {
     url: 'redis://localhost:6379/0'
   }
+  # default_url_options = { host: 'localhost', port: 3000 }
 end
