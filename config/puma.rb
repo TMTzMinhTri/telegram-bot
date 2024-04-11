@@ -36,28 +36,28 @@ pidfile ENV.fetch('PIDFILE', 'tmp/pids/server.pid')
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart
 
-if Rails.env.development?
-  begin
-    require 'ngrok/tunnel'
-    options = {
-      addr: ENV.fetch('PORT', 3000),
-      inspect: true,
-      config: File.join(ENV['HOME'], 'ngrok.yml')
-    }
-    Ngrok::Tunnel.start(options)
-    box = TTY::Box.frame(width: 50, height: 10, padding: 2, title: { top_left: '<NGROK>', bottom_right: '</NGROK>' },
-                         style: { fg: :green, bg: :black, border: { fg: :green, bg: :black } }) do
-      "STATUS: #{Ngrok::Tunnel.status}\nPORT:   #{Ngrok::Tunnel.port}\nHTTP:   #{Ngrok::Tunnel.ngrok_url}\nHTTPS:  #{Ngrok::Tunnel.ngrok_url_https}\n"
-    end
-  rescue StandardError => e
-    Rails.logger.error(e)
-    box = TTY::Box.frame(width: 50, height: 5, align: :center, padding: 1,
-                         title: { top_left: '<NGROK>', bottom_right: '</NGROK>' }, style: { fg: :red, bg: :black, border: { fg: :red, bg: :black } }) do
-      "I couldn't create the tunnel ;("
-    end
-  end
-  Rails.logger.debug "\n#{box}\n"
-end
+# if Rails.env.development?
+#   begin
+#     require 'ngrok/tunnel'
+#     options = {
+#       addr: ENV.fetch('PORT', 3000),
+#       inspect: true,
+#       config: Rails.root.join('config/ngrok.yml')
+#     }
+#     Ngrok::Tunnel.start(options)
+#     box = TTY::Box.frame(width: 50, height: 10, padding: 2, title: { top_left: '<NGROK>', bottom_right: '</NGROK>' },
+#                          style: { fg: :green, bg: :black, border: { fg: :green, bg: :black } }) do
+#       "STATUS: #{Ngrok::Tunnel.status}\nPORT:   #{Ngrok::Tunnel.port}\nHTTP:   #{Ngrok::Tunnel.ngrok_url}\nHTTPS:  #{Ngrok::Tunnel.ngrok_url_https}\n"
+#     end
+#   rescue StandardError => e
+#     Rails.logger.error(e)
+#     box = TTY::Box.frame(width: 50, height: 5, align: :center, padding: 1,
+#                          title: { top_left: '<NGROK>', bottom_right: '</NGROK>' }, style: { fg: :red, bg: :black, border: { fg: :red, bg: :black } }) do
+#       "I couldn't create the tunnel ;("
+#     end
+#   end
+#   Rails.logger.debug "\n#{box}\n"
+# end
 
 on_booted do
   if Rails.env.development? && Ngrok::Tunnel.running?
@@ -66,6 +66,7 @@ on_booted do
       host: url
     }
     Rails.application.routes.default_url_options = default_url_options
+    Rails.application.config.hosts << /.*\.ngrok-free\.app/
     Telegram::Bot::Tasks.set_webhook
   end
 end

@@ -20,9 +20,10 @@ module Bot3
     config.active_job.queue_adapter = :sidekiq
     config.session_store :redis_store,
                          servers: ['redis://localhost:6379/2/session'],
-                         expire_after: 90.minutes,
+                         expire_after: 1.hour,
                          key: 'access_token_ne',
-                         secure: true
+                         domain: 'localhost',
+                         secure: Rails.env.production?
 
     # Configuration for the application, engines, and railties goes here.
     #
