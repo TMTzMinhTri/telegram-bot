@@ -5,8 +5,22 @@ require:
 AllCops:
   NewCops: enable
   SuggestExtensions: false
+  
 Style/Documentation:
   Enabled: false
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Layout/LineLength:
+  Enabled: true
+  Max: 120
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false

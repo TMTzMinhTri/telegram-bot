@@ -77,4 +77,5 @@ Rails.application.configure do
   config.telegram_updates_controller.session_store = :redis_store, {
     url: 'redis://localhost:6379/0'
   }
+  config.hosts << /.*\.ngrok-free\.app/
 end

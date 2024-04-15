@@ -55,10 +55,10 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'annotate'
-  gem 'ngrok-tunnel', github: 'GetJobber/ngrok-tunnel', ref: 'c2bf7dd'
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'ruby-lsp'
+  gem 'tty-box'
   gem 'web-console'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
