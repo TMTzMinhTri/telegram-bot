@@ -13,6 +13,7 @@
 #  index_teams_on_created_by  (created_by)
 #
 class Team < ApplicationRecord
-  belongs_to :created_by, class_name: 'User', foreign_key: 'created_by', inverse_of: 'teams'
+  belongs_to :owner, class_name: 'User', foreign_key: 'created_by', inverse_of: 'teams'
   has_many :team_members, dependent: :destroy
 end
+# teams2 = Team.joins(:team_members).where(team_members: {user_id: 5})

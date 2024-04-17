@@ -3,10 +3,9 @@ Sidekiq::Web.use ActionDispatch::Cookies
 Sidekiq::Web.use Rails.application.config.session_store, Rails.application.config.session_options
 
 Rails.application.routes.draw do
-  resources :posts
   devise_for :users
 
-  telegram_webhook TelegramBot::WebhookController
+  # telegram_webhook TelegramBot::WebhookController
 
   authenticate :user do
     mount Sidekiq::Web => '/sidekiq'
@@ -17,5 +16,5 @@ Rails.application.routes.draw do
 
   get 'up' => 'rails/health#show', as: :rails_health_check
 
-  root 'posts#index'
+  root 'grape_swagger_rails/application#index'
 end

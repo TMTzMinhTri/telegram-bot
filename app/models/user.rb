@@ -37,6 +37,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :teams, inverse_of: :created_by, dependent: :destroy
+  has_many :teams, inverse_of: :owner, dependent: :destroy
   has_many :team_members, dependent: :destroy
 end

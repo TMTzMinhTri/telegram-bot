@@ -87,3 +87,5 @@ gem 'rack-cors', '~> 2.0'
 gem 'redis-rails', '~> 5.0'
 gem 'sidekiq', '~> 7.2'
 gem 'telegram-bot', '~> 0.16.1'
+
+gem "pundit", "~> 2.3"

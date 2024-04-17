@@ -22,4 +22,20 @@
 class TeamMember < ApplicationRecord
   belongs_to :user
   belongs_to :team
+
+  before_save :generate_invitation_token
+  after_commit :send_on_create_invitation_instructions, on: :create
+
+  private
+
+  def generate_invitation_token
+    self.invitation_sent_at = Time.now
+    self.invitation_token = Devise.friendly_token
+  end
+
+  def send_on_create_invitation_instructions
+    TeamMailer.with(member: self)
+              .invitation_instructions
+              .deliver_later
+  end
 end

@@ -1,6 +1,14 @@
 module Endpoints
   class Teams < RootApi
     resources :teams do
+      get do
+        owning_teams = current_user.teams
+        joining_teams = Team.joins(:team_members).where(team_members: { user_id: current_user.id })
+
+        teams = Team.from("(#{owning_teams.to_sql} UNION #{joining_teams.to_sql}) AS teams")
+        teams = teams.includes(:owner)
+        present teams, with: Entities::Team
+      end
       params do
         requires :email, type: String
       end
