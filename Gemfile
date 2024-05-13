@@ -2,11 +2,12 @@
 
 source 'https://rubygems.org'
 
-ruby '3.1.0'
+ruby '3.1.5'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.1.3', '>= 7.1.3.2'
-
+gem 'pg', '~> 1.5'
+# gem 'ros-apartment', require: 'apartment'
+gem 'rails', '~> 7.1'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
 
@@ -88,5 +89,9 @@ gem 'grape-swagger-entity', '~> 0.5.3'
 gem 'grape-swagger-rails', '~> 0.4.0'
 gem 'rack-cors', '~> 2.0'
 gem 'redis-rails', '~> 5.0'
+gem 'ros-apartment', require: 'apartment',
+                     git: 'https://github.com/rails-on-services/apartment.git'
 gem 'sidekiq', '~> 7.2'
 gem 'telegram-bot', '~> 0.16.1'
+
+gem 'dotenv', '~> 3.1'

@@ -42,6 +42,7 @@ if Rails.env.development?
     options = {
       addr: ENV.fetch('PORT', 3000),
       inspect: true,
+      log: 'log/ngrok.log',
       config: Rails.root.join('config/ngrok.yml')
     }
     Ngrok::Tunnel.start(options)

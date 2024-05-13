@@ -10,20 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_25_103515) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_25_102348) do
   create_table "team_members", force: :cascade do |t|
     t.integer "team_id"
     t.integer "user_id"
     t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "invitation_token"
-    t.datetime "invitation_created_at"
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
-    t.integer "invitation_limit"
-    t.integer "invited_by_id"
-    t.index ["invitation_token"], name: "index_team_members_on_invitation_token", unique: true
     t.index ["team_id"], name: "index_team_members_on_team_id"
     t.index ["user_id"], name: "index_team_members_on_user_id"
   end

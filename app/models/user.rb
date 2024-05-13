@@ -36,12 +36,12 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :validatable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable, :confirmable
 
   # has_many :team_members, dependent: :destroy
   # has_many :teams, dependent: :destroy, through: :team_members
-  # has_one :team, dependent: :destroy, inverse_of: 'created_by'
+  has_one :team, dependent: :destroy, inverse_of: 'created_by'
 
   validates :phone_number, uniqueness: true, if: ->(user) { user.phone_number.present? }
 

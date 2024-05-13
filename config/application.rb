@@ -25,6 +25,7 @@ module Bot3
                          #  threadsafe: true,
                          #  domain: :all,
                          secure: Rails.env.production?
+
     config.cache_store = :redis_cache_store, {
       url: 'redis://localhost:6379/0',
       expires_in: 90.minutes,

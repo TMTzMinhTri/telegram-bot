@@ -1,5 +1,7 @@
 {
-    "rubyLsp.rubyVersionManager": "rbenv",
+    "rubyLsp.rubyVersionManager": {
+        "identifier": "rbenv"
+    },
     "rubyLsp.formatter": "rubocop",
     "ruby.rubocop.configFilePath": ".rubocop.yml",
     "[ruby]": {
