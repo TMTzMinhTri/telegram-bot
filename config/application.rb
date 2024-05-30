@@ -3,7 +3,7 @@
 require_relative 'boot'
 
 require 'rails/all'
-
+require 'apartment/custom_console'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -23,7 +23,7 @@ module Bot3
                          expire_after: 90.minutes,
                          key: 'access_token_ne',
                          #  threadsafe: true,
-                         #  domain: :all,
+                         domain: :all,
                          secure: Rails.env.production?
 
     config.cache_store = :redis_cache_store, {

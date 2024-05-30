@@ -36,7 +36,7 @@ pidfile ENV.fetch('PIDFILE', 'tmp/pids/server.pid')
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart
 
-if Rails.env.development?
+if Rails.env.development? && ENV.fetch('NGROK_ENABLED', false) == true
   begin
     require 'ngrok/tunnel'
     options = {

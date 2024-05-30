@@ -5,6 +5,7 @@ module Endpoints
     resource :demo do
       get do
         logger.debug env.keys
+        logger.debug Apartment::Tenant.current
         true
       end
     end

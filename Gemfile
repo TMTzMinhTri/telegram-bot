@@ -95,3 +95,9 @@ gem 'sidekiq', '~> 7.2'
 gem 'telegram-bot', '~> 0.16.1'
 
 gem 'dotenv', '~> 3.1'
+
+gem 'paper_trail', '~> 15.1'
+
+gem 'request_store', '~> 1.7'
+
+gem 'pry-rails', '~> 0.3.9'

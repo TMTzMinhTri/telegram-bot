@@ -10,11 +10,11 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-User.create_or_find_by(email: 'admin@gmail.com') do |user|
-  user.password = '123123123'
-  user.password_confirmation = '123123123'
-  user.phone_number = '0396923861'
-  user.name = 'admin'
-  user.confirmed_at = Time.zone.now
-  user.team = Team.new(name: 'Test', created_by: user)
-end
+# User.create_or_find_by(email: 'admin@gmail.com') do |user|
+#   user.password = '123123123'
+#   user.password_confirmation = '123123123'
+#   user.phone_number = '0396923861'
+#   user.name = 'admin'
+#   user.confirmed_at = Time.zone.now
+#   user.team = Team.new(name: 'Test', created_by: user)
+# end
