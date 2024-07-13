@@ -81,7 +81,7 @@ group :test do
 end
 
 gem 'devise', '~> 4.9'
-gem 'grape', '~> 2.0'
+gem 'grape', '~> 2.1.2'
 gem 'grape-entity', '~> 1.0'
 gem 'grape_logging', '~> 1.8'
 gem 'grape-swagger', '~> 2.0'
@@ -101,3 +101,5 @@ gem 'paper_trail', '~> 15.1'
 gem 'request_store', '~> 1.7'
 
 gem 'pry-rails', '~> 0.3.9'
+
+gem 'store_model', '~> 2.4'

@@ -31,6 +31,7 @@ module Bot3
       expires_in: 90.minutes,
       namespace: 'bot3_cache'
     }
+    config.active_record.schema_format = :sql
 
     # Configuration for the application, engines, and railties goes here.
     #

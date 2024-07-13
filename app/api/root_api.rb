@@ -18,6 +18,7 @@ class RootApi < Grape::API
                 GrapeLogging::Loggers::RequestHeaders.new]
 
   mount Endpoints::Demo
+  mount Endpoints::Theaters
 
   add_swagger_documentation(
     base_path: '',

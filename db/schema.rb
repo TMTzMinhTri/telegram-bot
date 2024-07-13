@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_30_091153) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_30_092901) do
   create_schema "test2"
   create_schema "tri"
 
@@ -23,6 +23,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_30_091153) do
     t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "theaters_count", default: 0
+  end
+
+  create_table "theaters", force: :cascade do |t|
+    t.uuid "cinama_id"
+    t.string "name", null: false
+    t.integer "num_columns", default: 0
+    t.integer "num_rows", default: 0
+    t.jsonb "seating_layouts", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cinama_id"], name: "index_theaters_on_cinama_id"
+    t.index ["seating_layouts"], name: "index_theaters_on_seating_layouts", using: :gin
   end
 
   create_table "users", force: :cascade do |t|
