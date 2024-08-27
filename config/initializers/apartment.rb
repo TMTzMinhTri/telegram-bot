@@ -18,7 +18,7 @@ Apartment.configure do |config|
   # A typical example would be a Customer or Tenant model that stores each Tenant's information.
   #
   # config.excluded_models = %w[Cinama]
-  config.excluded_models = ['Cinama']
+  config.excluded_models = ['Company']
   # config.use_sql = true
 
   # In order to migrate all of your Tenants you need to provide a list of Tenant names to Apartment.
@@ -52,7 +52,7 @@ Apartment.configure do |config|
   #   end
   # end
   #
-  config.tenant_names = -> { Cinama.pluck(:sub_domain) }
+  config.tenant_names = -> { Company.pluck(:sub_domain) }
 
   # PostgreSQL:
   #   Specifies whether to use PostgreSQL schemas or create a new database per Tenant.

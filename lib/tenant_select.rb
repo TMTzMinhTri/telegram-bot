@@ -1,17 +1,17 @@
 class TenantSelect
   class << self
     def current
-      Cinama.current.try(:sub_domain)
+      Company.current.try(:sub_domain)
     end
 
     def switch(tenant)
       Apartment::Tenant.switch(tenant) do
-        Cinama.current = tenant
+        Company.current = tenant
       end
     end
 
     def reset
-      Cinama.current = nil
+      Company.current = nil
       Apartment::Tenant.reset
     end
 

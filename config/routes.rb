@@ -7,7 +7,7 @@ Sidekiq::Web.use Rails.application.config.session_store, Rails.application.confi
 Rails.application.routes.draw do
   devise_for :users
 
-  telegram_webhook TelegramBot::WebhookController
+  # telegram_webhook TelegramBot::WebhookController
 
   authenticate :user do
     mount Sidekiq::Web => '/sidekiq'

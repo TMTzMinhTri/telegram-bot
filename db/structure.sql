@@ -10,22 +10,36 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: test2; Type: SCHEMA; Schema: -; Owner: -
+-- Name: bingo; Type: SCHEMA; Schema: -; Owner: -
 --
 
-CREATE SCHEMA test2;
-
-
---
--- Name: tri; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA tri;
+CREATE SCHEMA bingo;
 
 
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
+
+--
+-- Name: ar_internal_metadata; Type: TABLE; Schema: bingo; Owner: -
+--
+
+CREATE TABLE bingo.ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: bingo; Owner: -
+--
+
+CREATE TABLE bingo.schema_migrations (
+    version character varying NOT NULL
+);
+
 
 --
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
@@ -40,18 +54,36 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
--- Name: cinamas; Type: TABLE; Schema: public; Owner: -
+-- Name: companies; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cinamas (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+CREATE TABLE public.companies (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
     sub_domain character varying,
-    name character varying,
-    address character varying,
+    telegram_setting jsonb DEFAULT '{}'::jsonb,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    theaters_count integer DEFAULT 0
+    updated_at timestamp(6) without time zone NOT NULL
 );
+
+
+--
+-- Name: companies_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.companies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: companies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.companies_id_seq OWNED BY public.companies.id;
 
 
 --
@@ -64,41 +96,6 @@ CREATE TABLE public.schema_migrations (
 
 
 --
--- Name: theaters; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.theaters (
-    id bigint NOT NULL,
-    cinama_id uuid,
-    name character varying NOT NULL,
-    seats_count integer DEFAULT 0,
-    seats_count_available integer DEFAULT 0,
-    seating_layouts jsonb DEFAULT '{}'::jsonb,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: theaters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.theaters_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: theaters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.theaters_id_seq OWNED BY public.theaters.id;
-
-
---
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -106,8 +103,10 @@ CREATE TABLE public.users (
     id bigint NOT NULL,
     email character varying DEFAULT ''::character varying NOT NULL,
     encrypted_password character varying DEFAULT ''::character varying NOT NULL,
+    company_id bigint,
     reset_password_token character varying,
     reset_password_sent_at timestamp(6) without time zone,
+    remember_created_at timestamp(6) without time zone,
     sign_in_count integer DEFAULT 0 NOT NULL,
     current_sign_in_at timestamp(6) without time zone,
     last_sign_in_at timestamp(6) without time zone,
@@ -145,220 +144,10 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: versions; Type: TABLE; Schema: public; Owner: -
+-- Name: companies id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-CREATE TABLE public.versions (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    item_type character varying NOT NULL,
-    item_id character varying NOT NULL,
-    event character varying NOT NULL,
-    whodunnit character varying,
-    object text,
-    created_at timestamp(6) without time zone,
-    object_changes text
-);
-
-
---
--- Name: ar_internal_metadata; Type: TABLE; Schema: test2; Owner: -
---
-
-CREATE TABLE test2.ar_internal_metadata (
-    key character varying NOT NULL,
-    value character varying,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: cinamas; Type: TABLE; Schema: test2; Owner: -
---
-
-CREATE TABLE test2.cinamas (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    sub_domain character varying,
-    name character varying,
-    address character varying,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: schema_migrations; Type: TABLE; Schema: test2; Owner: -
---
-
-CREATE TABLE test2.schema_migrations (
-    version character varying NOT NULL
-);
-
-
---
--- Name: users; Type: TABLE; Schema: test2; Owner: -
---
-
-CREATE TABLE test2.users (
-    id bigint NOT NULL,
-    email character varying DEFAULT ''::character varying NOT NULL,
-    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
-    reset_password_token character varying,
-    reset_password_sent_at timestamp(6) without time zone,
-    sign_in_count integer DEFAULT 0 NOT NULL,
-    current_sign_in_at timestamp(6) without time zone,
-    last_sign_in_at timestamp(6) without time zone,
-    current_sign_in_ip character varying,
-    last_sign_in_ip character varying,
-    confirmation_token character varying,
-    confirmed_at timestamp(6) without time zone,
-    confirmation_sent_at timestamp(6) without time zone,
-    unconfirmed_email character varying,
-    failed_attempts integer DEFAULT 0 NOT NULL,
-    unlock_token character varying,
-    locked_at timestamp(6) without time zone,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: users_id_seq; Type: SEQUENCE; Schema: test2; Owner: -
---
-
-CREATE SEQUENCE test2.users_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: test2; Owner: -
---
-
-ALTER SEQUENCE test2.users_id_seq OWNED BY test2.users.id;
-
-
---
--- Name: versions; Type: TABLE; Schema: test2; Owner: -
---
-
-CREATE TABLE test2.versions (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    item_type character varying NOT NULL,
-    item_id character varying NOT NULL,
-    event character varying NOT NULL,
-    whodunnit character varying,
-    object text,
-    created_at timestamp(6) without time zone,
-    object_changes text
-);
-
-
---
--- Name: ar_internal_metadata; Type: TABLE; Schema: tri; Owner: -
---
-
-CREATE TABLE tri.ar_internal_metadata (
-    key character varying NOT NULL,
-    value character varying,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: cinamas; Type: TABLE; Schema: tri; Owner: -
---
-
-CREATE TABLE tri.cinamas (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    sub_domain character varying,
-    name character varying,
-    address character varying,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: schema_migrations; Type: TABLE; Schema: tri; Owner: -
---
-
-CREATE TABLE tri.schema_migrations (
-    version character varying NOT NULL
-);
-
-
---
--- Name: users; Type: TABLE; Schema: tri; Owner: -
---
-
-CREATE TABLE tri.users (
-    id bigint NOT NULL,
-    email character varying DEFAULT ''::character varying NOT NULL,
-    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
-    reset_password_token character varying,
-    reset_password_sent_at timestamp(6) without time zone,
-    sign_in_count integer DEFAULT 0 NOT NULL,
-    current_sign_in_at timestamp(6) without time zone,
-    last_sign_in_at timestamp(6) without time zone,
-    current_sign_in_ip character varying,
-    last_sign_in_ip character varying,
-    confirmation_token character varying,
-    confirmed_at timestamp(6) without time zone,
-    confirmation_sent_at timestamp(6) without time zone,
-    unconfirmed_email character varying,
-    failed_attempts integer DEFAULT 0 NOT NULL,
-    unlock_token character varying,
-    locked_at timestamp(6) without time zone,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: users_id_seq; Type: SEQUENCE; Schema: tri; Owner: -
---
-
-CREATE SEQUENCE tri.users_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: tri; Owner: -
---
-
-ALTER SEQUENCE tri.users_id_seq OWNED BY tri.users.id;
-
-
---
--- Name: versions; Type: TABLE; Schema: tri; Owner: -
---
-
-CREATE TABLE tri.versions (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    item_type character varying NOT NULL,
-    item_id character varying NOT NULL,
-    event character varying NOT NULL,
-    whodunnit character varying,
-    object text,
-    created_at timestamp(6) without time zone,
-    object_changes text
-);
-
-
---
--- Name: theaters id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.theaters ALTER COLUMN id SET DEFAULT nextval('public.theaters_id_seq'::regclass);
+ALTER TABLE ONLY public.companies ALTER COLUMN id SET DEFAULT nextval('public.companies_id_seq'::regclass);
 
 
 --
@@ -369,17 +158,19 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- Name: users id; Type: DEFAULT; Schema: test2; Owner: -
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: bingo; Owner: -
 --
 
-ALTER TABLE ONLY test2.users ALTER COLUMN id SET DEFAULT nextval('test2.users_id_seq'::regclass);
+ALTER TABLE ONLY bingo.ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
 
 
 --
--- Name: users id; Type: DEFAULT; Schema: tri; Owner: -
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: bingo; Owner: -
 --
 
-ALTER TABLE ONLY tri.users ALTER COLUMN id SET DEFAULT nextval('tri.users_id_seq'::regclass);
+ALTER TABLE ONLY bingo.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
 --
@@ -391,11 +182,11 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
--- Name: cinamas cinamas_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: companies companies_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cinamas
-    ADD CONSTRAINT cinamas_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.companies
+    ADD CONSTRAINT companies_pkey PRIMARY KEY (id);
 
 
 --
@@ -407,14 +198,6 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
--- Name: theaters theaters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.theaters
-    ADD CONSTRAINT theaters_pkey PRIMARY KEY (id);
-
-
---
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -423,112 +206,17 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: versions versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: index_companies_on_telegram_setting; Type: INDEX; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.versions
-    ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
-
-
---
--- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: test2; Owner: -
---
-
-ALTER TABLE ONLY test2.ar_internal_metadata
-    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+CREATE INDEX index_companies_on_telegram_setting ON public.companies USING gin (telegram_setting);
 
 
 --
--- Name: cinamas cinamas_pkey; Type: CONSTRAINT; Schema: test2; Owner: -
+-- Name: index_users_on_company_id; Type: INDEX; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY test2.cinamas
-    ADD CONSTRAINT cinamas_pkey PRIMARY KEY (id);
-
-
---
--- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: test2; Owner: -
---
-
-ALTER TABLE ONLY test2.schema_migrations
-    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
-
-
---
--- Name: users users_pkey; Type: CONSTRAINT; Schema: test2; Owner: -
---
-
-ALTER TABLE ONLY test2.users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
-
---
--- Name: versions versions_pkey; Type: CONSTRAINT; Schema: test2; Owner: -
---
-
-ALTER TABLE ONLY test2.versions
-    ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
-
-
---
--- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: tri; Owner: -
---
-
-ALTER TABLE ONLY tri.ar_internal_metadata
-    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
-
-
---
--- Name: cinamas cinamas_pkey; Type: CONSTRAINT; Schema: tri; Owner: -
---
-
-ALTER TABLE ONLY tri.cinamas
-    ADD CONSTRAINT cinamas_pkey PRIMARY KEY (id);
-
-
---
--- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: tri; Owner: -
---
-
-ALTER TABLE ONLY tri.schema_migrations
-    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
-
-
---
--- Name: users users_pkey; Type: CONSTRAINT; Schema: tri; Owner: -
---
-
-ALTER TABLE ONLY tri.users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
-
---
--- Name: versions versions_pkey; Type: CONSTRAINT; Schema: tri; Owner: -
---
-
-ALTER TABLE ONLY tri.versions
-    ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
-
-
---
--- Name: index_theaters_on_cinama_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_theaters_on_cinama_id ON public.theaters USING btree (cinama_id);
-
-
---
--- Name: index_theaters_on_name_and_cinama_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_theaters_on_name_and_cinama_id ON public.theaters USING btree (name, cinama_id);
-
-
---
--- Name: index_theaters_on_seating_layouts; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_theaters_on_seating_layouts ON public.theaters USING gin (seating_layouts);
+CREATE INDEX index_users_on_company_id ON public.users USING btree (company_id);
 
 
 --
@@ -560,92 +248,12 @@ CREATE UNIQUE INDEX index_users_on_unlock_token ON public.users USING btree (unl
 
 
 --
--- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_versions_on_item_type_and_item_id ON public.versions USING btree (item_type, item_id);
-
-
---
--- Name: index_users_on_confirmation_token; Type: INDEX; Schema: test2; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_confirmation_token ON test2.users USING btree (confirmation_token);
-
-
---
--- Name: index_users_on_email; Type: INDEX; Schema: test2; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_email ON test2.users USING btree (email);
-
-
---
--- Name: index_users_on_reset_password_token; Type: INDEX; Schema: test2; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_reset_password_token ON test2.users USING btree (reset_password_token);
-
-
---
--- Name: index_users_on_unlock_token; Type: INDEX; Schema: test2; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_unlock_token ON test2.users USING btree (unlock_token);
-
-
---
--- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: test2; Owner: -
---
-
-CREATE INDEX index_versions_on_item_type_and_item_id ON test2.versions USING btree (item_type, item_id);
-
-
---
--- Name: index_users_on_confirmation_token; Type: INDEX; Schema: tri; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_confirmation_token ON tri.users USING btree (confirmation_token);
-
-
---
--- Name: index_users_on_email; Type: INDEX; Schema: tri; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_email ON tri.users USING btree (email);
-
-
---
--- Name: index_users_on_reset_password_token; Type: INDEX; Schema: tri; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_reset_password_token ON tri.users USING btree (reset_password_token);
-
-
---
--- Name: index_users_on_unlock_token; Type: INDEX; Schema: tri; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_unlock_token ON tri.users USING btree (unlock_token);
-
-
---
--- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: tri; Owner: -
---
-
-CREATE INDEX index_versions_on_item_type_and_item_id ON tri.versions USING btree (item_type, item_id);
-
-
---
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20240530092901'),
-('20240530091153'),
-('20240523101125'),
-('20240523101124'),
-('20240523082628');
+('20240812183732'),
+('20240812175135');
 

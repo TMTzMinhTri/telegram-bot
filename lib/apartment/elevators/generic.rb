@@ -23,8 +23,8 @@ module Apartment
 
       def switch_tenant(name, env)
         Apartment::Tenant.switch(name) do
-          cinama = Cinama.fetch(name)
-          Cinama.current = cinama
+          company = Company.fetch(name)
+          Company.current = company
           @app.call(env)
         end
       rescue Apartment::TenantNotFound

@@ -103,3 +103,9 @@ gem 'request_store', '~> 1.7'
 gem 'pry-rails', '~> 0.3.9'
 
 gem 'store_model', '~> 2.4'
+
+gem "firebase", "~> 0.2.8"
+
+gem "closure_tree", "~> 7.4"
+
+gem "faker", "~> 3.4"

@@ -1,9 +1,9 @@
-# frozen_string_literal: true
+# # frozen_string_literal: true
 
-Telegram.bots_config = {
-  default: {
-    username: Rails.application.credentials.telegram.dig(:bot, :username),
-    token: Rails.application.credentials.telegram.dig(:bot, :token),
-    async: true
-  }
-}
+# Telegram.bots_config = {
+#   default: {
+#     username: Rails.application.credentials.telegram.dig(:bot, :username),
+#     token: Rails.application.credentials.telegram.dig(:bot, :token),
+#     async: true
+#   }
+# }
