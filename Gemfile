@@ -109,3 +109,5 @@ gem "firebase", "~> 0.2.8"
 gem "closure_tree", "~> 7.4"
 
 gem "faker", "~> 3.4"
+
+gem "rotp", "~> 6.3"

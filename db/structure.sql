@@ -9,37 +9,9 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
---
--- Name: bingo; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA bingo;
-
-
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
-
---
--- Name: ar_internal_metadata; Type: TABLE; Schema: bingo; Owner: -
---
-
-CREATE TABLE bingo.ar_internal_metadata (
-    key character varying NOT NULL,
-    value character varying,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: schema_migrations; Type: TABLE; Schema: bingo; Owner: -
---
-
-CREATE TABLE bingo.schema_migrations (
-    version character varying NOT NULL
-);
-
 
 --
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
@@ -61,7 +33,8 @@ CREATE TABLE public.companies (
     id bigint NOT NULL,
     name character varying NOT NULL,
     sub_domain character varying,
-    telegram_setting jsonb DEFAULT '{}'::jsonb,
+    store_setting jsonb DEFAULT '{}'::jsonb,
+    general_setting jsonb DEFAULT '{}'::jsonb,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -120,7 +93,10 @@ CREATE TABLE public.users (
     unlock_token character varying,
     locked_at timestamp(6) without time zone,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    otp_required_for_login boolean DEFAULT false NOT NULL,
+    consumed_timestep integer,
+    otp_secret character varying
 );
 
 
@@ -158,22 +134,6 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: bingo; Owner: -
---
-
-ALTER TABLE ONLY bingo.ar_internal_metadata
-    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
-
-
---
--- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: bingo; Owner: -
---
-
-ALTER TABLE ONLY bingo.schema_migrations
-    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
-
-
---
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -206,10 +166,17 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: index_companies_on_telegram_setting; Type: INDEX; Schema: public; Owner: -
+-- Name: index_companies_on_general_setting; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_companies_on_telegram_setting ON public.companies USING gin (telegram_setting);
+CREATE INDEX index_companies_on_general_setting ON public.companies USING gin (general_setting);
+
+
+--
+-- Name: index_companies_on_store_setting; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_companies_on_store_setting ON public.companies USING gin (store_setting);
 
 
 --
@@ -254,6 +221,7 @@ CREATE UNIQUE INDEX index_users_on_unlock_token ON public.users USING btree (unl
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240827082639'),
 ('20240812183732'),
 ('20240812175135');
 

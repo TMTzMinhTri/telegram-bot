@@ -348,6 +348,7 @@ GEM
       railties (>= 5.2)
     rexml (3.3.1)
       strscan
+    rotp (6.3.0)
     rubocop (1.64.1)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -489,6 +490,7 @@ DEPENDENCIES
   redis-rails (~> 5.0)
   request_store (~> 1.7)
   ros-apartment!
+  rotp (~> 6.3)
   rubocop-performance
   rubocop-rails
   ruby-lsp
@@ -508,4 +510,4 @@ RUBY VERSION
    ruby 3.1.5p252
 
 BUNDLED WITH
-   2.5.10
+   2.5.18
