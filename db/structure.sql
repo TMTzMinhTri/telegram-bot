@@ -93,10 +93,7 @@ CREATE TABLE public.users (
     unlock_token character varying,
     locked_at timestamp(6) without time zone,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    otp_required_for_login boolean DEFAULT false NOT NULL,
-    consumed_timestep integer,
-    otp_secret character varying
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -221,7 +218,6 @@ CREATE UNIQUE INDEX index_users_on_unlock_token ON public.users USING btree (unl
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20240827082639'),
 ('20240812183732'),
 ('20240812175135');
 
