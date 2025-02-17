@@ -32,3 +32,33 @@ plugin :tmp_restart
 # Specify the PID file. Defaults to tmp/pids/server.pid in development.
 # In other environments, only set the PID file if requested.
 pidfile ENV["PIDFILE"] if ENV["PIDFILE"]
+
+
+if ENV["RAILS_ENV"] == "development"
+  require "open3"
+  subdomain = ENV.fetch("LOCALTUNNEL_SUBDOMAIN", "tritm")
+  port = ENV.fetch("PORT", 3000)
+
+  Thread.new do
+    statement = "npx localtunnel --port #{port} --subdomain #{subdomain}"
+    puts "Starting LocalTunnel... on #{statement}"
+
+    Open3.popen2e(statement) do |stdin, stdout_err, wait_thr|
+      stdout_err.each do |line|
+        puts line # Log LocalTunnel output in the console
+
+        if line.match?(/your url is: (https:\/\/\S+)/)
+          tunnel_url = line.match(/(https:\/\/\S+)/)[0]
+          puts "LocalTunnel started at: #{tunnel_url}"
+
+          Rails.application.routes.default_url_options = {
+            host: tunnel_url
+          }
+          # Update Telegram webhook
+          Telegram::Bot::Tasks.set_webhook
+          puts "Webhook updated successfully!"
+        end
+      end
+    end
+  end
+end

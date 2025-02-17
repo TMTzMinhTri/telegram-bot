@@ -74,6 +74,9 @@ GEM
       tzinfo (~> 2.0, >= 2.0.5)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
+    annotate (3.2.0)
+      activerecord (>= 3.2, < 8.0)
+      rake (>= 10.4, < 14.0)
     ast (2.4.2)
     base64 (0.2.0)
     benchmark (0.4.0)
@@ -100,12 +103,58 @@ GEM
     debug (1.10.0)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    dotenv (3.1.7)
     drb (2.2.1)
+    dry-core (1.1.0)
+      concurrent-ruby (~> 1.0)
+      logger
+      zeitwerk (~> 2.6)
+    dry-inflector (1.2.0)
+    dry-logic (1.6.0)
+      bigdecimal
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.1)
+      zeitwerk (~> 2.6)
+    dry-struct (1.7.1)
+      dry-core (~> 1.1)
+      dry-types (~> 1.8, >= 1.8.2)
+      ice_nine (~> 0.11)
+      zeitwerk (~> 2.6)
+    dry-types (1.8.2)
+      bigdecimal (~> 3.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.0)
+      dry-inflector (~> 1.0)
+      dry-logic (~> 1.4)
+      zeitwerk (~> 2.6)
     erubi (1.13.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    grape (2.3.0)
+      activesupport (>= 6)
+      dry-types (>= 1.1)
+      mustermann-grape (~> 1.1.0)
+      rack (>= 2)
+      zeitwerk
+    grape-entity (1.0.1)
+      activesupport (>= 3.0.0)
+      multi_json (>= 1.3.2)
+    grape-swagger (2.1.2)
+      grape (>= 1.7, < 3.0)
+      rack-test (~> 2)
+    grape-swagger-entity (0.5.5)
+      grape-entity (~> 1)
+      grape-swagger (~> 2)
+    grape-swagger-rails (0.6.0)
+      ostruct
+      railties (>= 6.0.6.1)
+    grape_logging (1.8.4)
+      grape
+      rack
+    httpclient (2.8.3)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
+    ice_nine (0.11.2)
     io-console (0.8.0)
     irb (1.15.1)
       pp (>= 0.6.0)
@@ -135,8 +184,15 @@ GEM
     marcel (1.0.4)
     matrix (0.4.2)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.8)
     minitest (5.25.4)
     msgpack (1.8.0)
+    multi_json (1.15.0)
+    mustermann (3.0.3)
+      ruby2_keywords (~> 0.0.1)
+    mustermann-grape (1.1.0)
+      mustermann (>= 1.0.0)
+    mutex_m (0.3.0)
     net-imap (0.5.6)
       date
       net-protocol
@@ -147,6 +203,9 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.4)
+    nokogiri (1.18.2)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.18.2-aarch64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.18.2-aarch64-linux-musl)
@@ -163,6 +222,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.2-x86_64-linux-musl)
       racc (~> 1.4)
+    ostruct (0.6.1)
     parallel (1.26.3)
     parser (3.3.7.1)
       ast (~> 2.4.1)
@@ -170,6 +230,7 @@ GEM
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
+    prism (1.3.0)
     psych (5.2.3)
       date
       stringio
@@ -178,6 +239,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.1.10)
+    rack-cors (2.0.2)
+      rack (>= 2.0.0)
     rack-session (2.1.0)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -216,17 +279,35 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.2.1)
+    rbs (3.8.1)
+      logger
     rdoc (6.12.0)
       psych (>= 4.0.0)
     redis (5.3.0)
       redis-client (>= 0.22.0)
+    redis-actionpack (5.5.0)
+      actionpack (>= 5)
+      redis-rack (>= 2.1.0, < 4)
+      redis-store (>= 1.1.0, < 2)
+    redis-activesupport (5.3.0)
+      activesupport (>= 3, < 8)
+      redis-store (>= 1.3, < 2)
     redis-client (0.23.2)
       connection_pool
+    redis-rack (3.0.0)
+      rack-session (>= 0.2.0)
+      redis-store (>= 1.2, < 2)
+    redis-rails (5.0.2)
+      redis-actionpack (>= 5.0, < 6)
+      redis-activesupport (>= 5.0, < 6)
+      redis-store (>= 1.2, < 2)
+    redis-store (1.11.0)
+      redis (>= 4, < 6)
     regexp_parser (2.10.0)
     reline (0.6.0)
       io-console (~> 0.5)
     rexml (3.4.1)
-    rubocop (1.72.1)
+    rubocop (1.72.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -258,7 +339,13 @@ GEM
       rubocop-minitest
       rubocop-performance
       rubocop-rails
+    ruby-lsp (0.23.11)
+      language_server-protocol (~> 3.17.0)
+      prism (>= 1.2, < 2.0)
+      rbs (>= 3, < 4)
+      sorbet-runtime (>= 0.5.10782)
     ruby-progressbar (1.13.0)
+    ruby2_keywords (0.0.5)
     rubyzip (2.4.1)
     securerandom (0.4.1)
     selenium-webdriver (4.28.0)
@@ -267,6 +354,13 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sidekiq (7.3.9)
+      base64
+      connection_pool (>= 2.3.0)
+      logger
+      rack (>= 2.2.4)
+      redis-client (>= 0.22.2)
+    sorbet-runtime (0.5.11834)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -274,6 +368,8 @@ GEM
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
+    sqlite3 (2.5.0)
+      mini_portile2 (~> 2.8.0)
     sqlite3 (2.5.0-aarch64-linux-gnu)
     sqlite3 (2.5.0-aarch64-linux-musl)
     sqlite3 (2.5.0-arm-linux-gnu)
@@ -285,6 +381,12 @@ GEM
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.1.3)
+    telegram-bot (0.16.7)
+      actionpack (>= 4.0, < 8.1)
+      activesupport (>= 4.0, < 8.1)
+      httpclient (~> 2.7)
+    telegram-bot-types (0.7.0)
+      dry-struct (~> 1.0)
     thor (1.3.2)
     timeout (0.4.3)
     turbo-rails (2.0.11)
@@ -317,27 +419,44 @@ PLATFORMS
   arm-linux-gnu
   arm-linux-musl
   arm64-darwin
+  ruby
   x86_64-darwin
   x86_64-linux
   x86_64-linux-gnu
   x86_64-linux-musl
 
 DEPENDENCIES
+  annotate
   bootsnap
   brakeman
   capybara
   debug
+  dotenv
+  grape (~> 2.3)
+  grape-entity (~> 1.0)
+  grape-swagger (~> 2.1)
+  grape-swagger-entity (~> 0.5.5)
+  grape-swagger-rails (~> 0.6.0)
+  grape_logging (~> 1.8)
   jbuilder
   jsbundling-rails
   kredis
+  mutex_m (~> 0.3.0)
   puma (>= 5.0)
+  rack-cors (~> 2.0)
   rails (~> 7.2.2, >= 7.2.2.1)
   redis (>= 4.0.1)
+  redis-rails (~> 5.0)
+  rubocop
   rubocop-rails-omakase
+  ruby-lsp
   selenium-webdriver
+  sidekiq (~> 7.3)
   sprockets-rails
   sqlite3 (>= 1.4)
   stimulus-rails
+  telegram-bot (~> 0.16.7)
+  telegram-bot-types (~> 0.7.0)
   turbo-rails
   tzinfo-data
   web-console
