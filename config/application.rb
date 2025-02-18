@@ -28,7 +28,6 @@ module BadmintonManagement
                          servers: ["redis://localhost:6379/2/session"],
                          expire_after: 1.hour,
                          key: "access_token_ne",
-                         domain: "localhost",
                          secure: Rails.env.production?
   end
 end
