@@ -1,0 +1,12 @@
+{
+  "editor.defaultFormatter": "Shopify.ruby-lsp",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "[ruby]": {
+    "editor.defaultFormatter": "Shopify.ruby-lsp",
+    "editor.formatOnSave": true
+  },
+  "ruby.rubocop.onSave": true,
+  "ruby.rubocop.executePath": "$HOME/.rbenv/shims/",
+  "ruby.rubocop.useBundler": true
+}

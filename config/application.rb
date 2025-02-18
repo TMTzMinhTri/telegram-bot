@@ -25,10 +25,10 @@ module BadmintonManagement
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.session_store :redis_store,
-                          servers: [ "redis://localhost:6379/2/session" ],
-                          expire_after: 1.hour,
-                          key: "access_token_ne",
-                          domain: "localhost",
-                          secure: Rails.env.production?
+                         servers: ["redis://localhost:6379/2/session"],
+                         expire_after: 1.hour,
+                         key: "access_token_ne",
+                         domain: "localhost",
+                         secure: Rails.env.production?
   end
 end

@@ -32,7 +32,7 @@ module Telegram
       else
         save_context :keyboard!
         respond_with :message, text: t(".prompt"), reply_markup: {
-          keyboard: [ t(".buttons") ],
+          keyboard: [t(".buttons")],
           resize_keyboard: true,
           one_time_keyboard: true,
           selective: true
@@ -47,7 +47,7 @@ module Telegram
             { text: t(".alert"), callback_data: "alert" },
             { text: t(".no_alert"), callback_data: "no_alert" }
           ],
-          [ { text: t(".repo"), url: "https://github.com/telegram-bot-rb/telegram-bot" } ]
+          [{ text: t(".repo"), url: "https://github.com/telegram-bot-rb/telegram-bot" }]
         ]
       }
     end
@@ -97,11 +97,11 @@ module Telegram
       respond_with :message, text: t(".content", text: message["text"])
     end
 
-    def action_missing(action, *_args)
-      if action_type == :command
-        respond_with :message,
-          text: t("telegram.webhook.action_missing.command", command: action_options[:command])
-      end
+    def action_missing(_action, *_args)
+      return unless action_type == :command
+
+      respond_with :message,
+                   text: t(".command", command: action_options[:command])
     end
   end
 end
