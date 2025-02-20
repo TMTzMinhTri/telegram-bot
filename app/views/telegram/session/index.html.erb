@@ -1,0 +1,5 @@
+<%= form_with url: telegram_session_index_path, method: :post do |form| %>
+  <%= form.label :query, "Search for:" %>
+  <%= form.search_field :query %>
+  <%= form.submit "Search" %>
+<% end %>
