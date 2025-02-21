@@ -1,6 +1,7 @@
 module Telegram
   class WebhookController < Telegram::Bot::UpdatesController
     include Telegram::Bot::UpdatesController::MessageContext
+    include Telegram::Bot::UpdatesController::TypedUpdate
 
     def start!(*)
       respond_with :message, text: t(".content")
@@ -52,7 +53,20 @@ module Telegram
       }
     end
 
+    def inline_keyboard_two!(*)
+      respond_with :message, text: t(".prompt"), reply_markup: {
+        inline_keyboard: [
+          [
+            { text: t(".alert"), callback_data: "alert2" },
+            { text: t(".no_alert"), callback_data: "no_alert2" }
+          ],
+          [{ text: t(".repo"), url: "https://github.com/telegram-bot-rb/telegram-bot" }]
+        ]
+      }
+    end
+
     def callback_query(data)
+      p data
       if data == "alert"
         answer_callback_query t(".alert"), show_alert: true
       else

@@ -8,6 +8,7 @@ class DeviseCreatePlayers < ActiveRecord::Migration[7.2]
       t.string :encrypted_password, null: false, default: ""
       t.string :phone_number
       t.string :name
+      t.string :telegram_id
       t.datetime :telegram_sign_in_at
       ## Recoverable
       # t.string   :reset_password_token
