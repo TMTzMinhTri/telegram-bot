@@ -33,7 +33,7 @@ plugin :tmp_restart
 # In other environments, only set the PID file if requested.
 pidfile ENV["PIDFILE"] if ENV["PIDFILE"]
 
-if ENV["RAILS_ENV"] == "development"
+if ENV["RAILS_ENV"] == "development" && ENV["ENABLE_TUNNEL"]
   require "open3"
   subdomain = ENV.fetch("LOCALTUNNEL_SUBDOMAIN", "tritm")
   port = ENV.fetch("PORT", 3000)

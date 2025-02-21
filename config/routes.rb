@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     resources :session
   end
 
+  mount RootApi => "/"
+  mount GrapeSwaggerRails::Engine => "/swagger"
   # Defines the root path route ("/")
   # root "posts#index"
 end

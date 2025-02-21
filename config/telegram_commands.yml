@@ -1,0 +1,14 @@
+- command: view_player
+  description: Xem danh sách thành viên
+
+- command: add_player
+  description: Thêm thành viên mới
+
+- command: update_player
+  description: Thêm thành viên mới
+
+- command: add_booking
+  description: Thêm lịch đặt sân
+
+- command: dashboard
+  description: Xem tổng tiền của từng thành viên
