@@ -82,3 +82,5 @@ gem "mutex_m", "~> 0.3.0"
 gem "redis-rails", "~> 5.0"
 
 gem "devise", "~> 4.9"
+
+gem "data_migrate", "~> 11.2"

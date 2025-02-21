@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_18_090958) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_21_082039) do
+  create_table "court_booking_players", force: :cascade do |t|
+    t.integer "court_booking_id", null: false
+    t.integer "player_id"
+    t.string "name"
+    t.integer "invited_by_id"
+    t.integer "played_minutes", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["court_booking_id"], name: "index_court_booking_players_on_court_booking_id"
+    t.index ["invited_by_id"], name: "index_court_booking_players_on_invited_by_id"
+    t.index ["player_id"], name: "index_court_booking_players_on_player_id"
+  end
+
+# Could not dump table "court_bookings" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
+
+
   create_table "players", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -21,4 +38,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_18_090958) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_players_on_email", unique: true
   end
+
+  add_foreign_key "court_booking_players", "court_bookings"
+  add_foreign_key "court_booking_players", "players"
+  add_foreign_key "court_booking_players", "players", column: "invited_by_id"
 end

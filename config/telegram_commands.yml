@@ -1,0 +1,4 @@
+- command: logut
+  description: đăng xuất
+- command: login
+  description: đăng nhập
