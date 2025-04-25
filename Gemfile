@@ -67,7 +67,7 @@ gem "grape-swagger", "~> 2.1"
 gem "grape_logging", "~> 1.8"
 gem "grape-entity", "~> 1.0"
 
-gem "sidekiq", "~> 7.3"
+gem "sidekiq", "~> 8.0"
 
 gem "telegram-bot", "~> 0.16.7"
 
